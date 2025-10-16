@@ -88,14 +88,46 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            <div className="space-y-8 mb-8">
+            <div className="space-y-12 mb-8">
+              {/* Concept & Schematics Section */}
               <div>
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  <span className="text-[#00ff88]">1.</span> Concept & Schematics
+                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#00ff88]/10 border border-[#00ff88]/30 text-[#00ff88] text-xl">
+                    1
+                  </span>
+                  Concept & Schematics
                 </h2>
-                <p className="text-gray-400 mb-4">{project.concept}</p>
+                
+                <div className="space-y-6">
+                  {project.concept.split('\n\n').map((paragraph, idx) => {
+                    // Check if paragraph starts with a bold marker pattern
+                    const isBoldSection = paragraph.match(/^\*\*(.+?)\*\*/);
+                    
+                    if (isBoldSection) {
+                      const [title, ...content] = paragraph.split('**');
+                      const cleanTitle = title.trim();
+                      const cleanContent = content.join('').trim();
+                      
+                      return (
+                        <div key={idx} className="bg-[#111111] border border-[#00ff88]/10 rounded-xl p-6">
+                          <h3 className="text-lg font-semibold text-[#00ff88] mb-3">
+                            {cleanTitle}
+                          </h3>
+                          <p className="text-gray-400 leading-relaxed">{cleanContent}</p>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <p key={idx} className="text-gray-400 leading-relaxed">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
+                </div>
+
                 {project.schematicImage && (
-                  <div className="rounded-xl overflow-hidden border border-[#00ff88]/20">
+                  <div className="mt-6 rounded-xl overflow-hidden border border-[#00ff88]/20 shadow-[0_0_20px_rgba(0,255,136,0.1)]">
                     <img
                       src={project.schematicImage}
                       alt="Schematic"
@@ -105,16 +137,47 @@ export default function ProjectDetail() {
                 )}
               </div>
 
+              {/* PCB Layout Strategy Section */}
               <div>
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  <span className="text-[#0088ff]">2.</span> PCB Layout Strategy
+                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#0088ff]/10 border border-[#0088ff]/30 text-[#0088ff] text-xl">
+                    2
+                  </span>
+                  PCB Layout Strategy
                 </h2>
-                <p className="text-gray-400 mb-4">{project.layoutStrategy}</p>
+                
+                <div className="space-y-6 mb-6">
+                  {project.layoutStrategy.split('\n\n').map((paragraph, idx) => {
+                    // Check for bullet points or list items
+                    if (paragraph.includes('*') || paragraph.includes('•')) {
+                      const items = paragraph.split(/[*•]/).filter(item => item.trim());
+                      return (
+                        <div key={idx} className="bg-[#111111] border border-[#0088ff]/10 rounded-xl p-6">
+                          <ul className="space-y-3">
+                            {items.map((item, itemIdx) => (
+                              <li key={itemIdx} className="flex items-start gap-3 text-gray-400">
+                                <span className="text-[#0088ff] mt-1">▸</span>
+                                <span className="leading-relaxed">{item.trim()}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <p key={idx} className="text-gray-400 leading-relaxed">
+                        {paragraph}
+                      </p>
+                    );
+                  })}
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {project.layoutImages.map((img, index) => (
                     <div
                       key={index}
-                      className="rounded-xl overflow-hidden border border-[#0088ff]/20"
+                      className="rounded-xl overflow-hidden border border-[#0088ff]/20 shadow-[0_0_20px_rgba(0,136,255,0.1)] hover:shadow-[0_0_30px_rgba(0,136,255,0.2)] transition-all"
                     >
                       <img src={img} alt={`Layout ${index + 1}`} className="w-full" />
                     </div>
@@ -122,11 +185,41 @@ export default function ProjectDetail() {
                 </div>
               </div>
 
+              {/* Challenges & Solutions Section */}
               <div>
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  <span className="text-[#ff0080]">3.</span> Challenges & Solutions
+                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#ff0080]/10 border border-[#ff0080]/30 text-[#ff0080] text-xl">
+                    3
+                  </span>
+                  Challenges & Solutions
                 </h2>
-                <p className="text-gray-400">{project.challenges}</p>
+                
+                <div className="space-y-6">
+                  {project.challenges.split('\n\n').map((paragraph, idx) => {
+                    // Check for bullet points or list items
+                    if (paragraph.includes('*') || paragraph.includes('•')) {
+                      const items = paragraph.split(/[*•]/).filter(item => item.trim());
+                      return (
+                        <div key={idx} className="bg-[#111111] border border-[#ff0080]/10 rounded-xl p-6">
+                          <ul className="space-y-3">
+                            {items.map((item, itemIdx) => (
+                              <li key={itemIdx} className="flex items-start gap-3 text-gray-400">
+                                <span className="text-[#ff0080] mt-1">▸</span>
+                                <span className="leading-relaxed">{item.trim()}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div key={idx} className="bg-[#111111] border border-[#ff0080]/10 rounded-xl p-6">
+                        <p className="text-gray-400 leading-relaxed">{paragraph}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
