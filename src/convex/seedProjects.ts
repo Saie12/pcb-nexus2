@@ -50,21 +50,6 @@ export const seed = mutation({
         githubUrl: "https://github.com",
         order: 2,
       },
-      {
-        title: "Motor Control Board",
-        slug: "motor-control-board",
-        summary: "2-layer power electronics PCB for brushless DC motor control with integrated gate drivers and current sensing.",
-        heroImage: "https://images.unsplash.com/photo-1581093458791-9d42e3c5e23e?w=800&h=600&fit=crop",
-        featured: true,
-        technologies: ["KiCad", "2-Layer PCB", "Power Electronics", "PIC", "PWM", "Gate Drivers", "Current Sensing"],
-        concept: "Created a motor control board for a 24V BLDC motor application. The design features a PIC16F microcontroller for control logic, IR2104 gate drivers for the MOSFETs, and ACS712 current sensors for feedback. The board supports up to 10A continuous current.",
-        layoutStrategy: "Despite being a 2-layer board, careful attention was paid to power routing. High-current traces were made wide (100 mil minimum) with thermal relief for better heat dissipation. The gate driver circuits were placed close to the MOSFETs to minimize gate loop inductance. Ground plane was maximized on the bottom layer with strategic cuts to separate analog sensing ground from power ground, connected at a single star point.",
-        challenges: "Managing heat dissipation on a 2-layer board was challenging. I used large copper pours connected to the MOSFET drain pads to act as heatsinks. Added thermal vias under the MOSFETs to improve heat transfer. Another challenge was noise from PWM switching affecting the current sensors - solved by adding RC filters and proper ground plane management.",
-        layoutImages: [
-          "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&h=400&fit=crop"
-        ],
-        order: 3,
-      },
     ];
 
     for (const project of projects) {
