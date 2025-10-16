@@ -41,6 +41,8 @@ const schema = defineSchema(
       layoutStrategy: v.string(),
       challenges: v.string(),
       schematicImage: v.optional(v.string()),
+      pcbLayoutImages: v.optional(v.array(v.string())),
+      view3dImages: v.optional(v.array(v.string())),
       layoutImages: v.array(v.string()),
       githubUrl: v.optional(v.string()),
       demoUrl: v.optional(v.string()),

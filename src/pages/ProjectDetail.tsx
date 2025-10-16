@@ -148,7 +148,6 @@ export default function ProjectDetail() {
                 
                 <div className="space-y-6 mb-6">
                   {project.layoutStrategy.split('\n\n').map((paragraph, idx) => {
-                    // Check for bullet points or list items
                     if (paragraph.includes('*') || paragraph.includes('•')) {
                       const items = paragraph.split(/[*•]/).filter(item => item.trim());
                       return (
@@ -173,16 +172,53 @@ export default function ProjectDetail() {
                   })}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.layoutImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className="rounded-xl overflow-hidden border border-[#0088ff]/20 shadow-[0_0_20px_rgba(0,136,255,0.1)] hover:shadow-[0_0_30px_rgba(0,136,255,0.2)] transition-all"
-                    >
-                      <img src={img} alt={`Layout ${index + 1}`} className="w-full" />
+                {/* PCB Layout Images */}
+                {project.pcbLayoutImages && project.pcbLayoutImages.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                      <span className="text-[#0088ff]">📐</span>
+                      PCB Layout Views
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {project.pcbLayoutImages.map((img, index) => (
+                        <div
+                          key={index}
+                          className="rounded-xl overflow-hidden border border-[#0088ff]/20 shadow-[0_0_20px_rgba(0,136,255,0.1)] hover:shadow-[0_0_30px_rgba(0,136,255,0.2)] transition-all group"
+                        >
+                          <img 
+                            src={img} 
+                            alt={`PCB Layout ${index + 1}`} 
+                            className="w-full group-hover:scale-105 transition-transform duration-300" 
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+
+                {/* 3D View Images */}
+                {project.view3dImages && project.view3dImages.length > 0 && (
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                      <span className="text-[#0088ff]">🎨</span>
+                      3D Rendered Views
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {project.view3dImages.map((img, index) => (
+                        <div
+                          key={index}
+                          className="rounded-xl overflow-hidden border border-[#0088ff]/20 shadow-[0_0_20px_rgba(0,136,255,0.1)] hover:shadow-[0_0_30px_rgba(0,136,255,0.2)] transition-all group"
+                        >
+                          <img 
+                            src={img} 
+                            alt={`3D View ${index + 1}`} 
+                            className="w-full group-hover:scale-105 transition-transform duration-300" 
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Challenges & Solutions Section */}
