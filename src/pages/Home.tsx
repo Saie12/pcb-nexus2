@@ -12,6 +12,31 @@ import { Loader2 } from "lucide-react";
 export default function Home() {
   const featuredProjects = useQuery(api.projects.getFeatured);
 
+  // Animation variants for staggered text reveal
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.03,
+      },
+    },
+  };
+
+  const charVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
+  const headlineText = "Expert PCB Design and Hardware Prototyping";
+  const words = headlineText.split(" ");
+
   return (
     <div className="min-h-screen bg-[#111111]">
       <Navbar />
@@ -74,15 +99,37 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-              Expert PCB Design and
-              <br />
-              <span className="bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent">
-                Hardware Prototyping
-              </span>
-            </h1>
+            <motion.h1
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight"
+            >
+              {words.map((word, wordIndex) => (
+                <span key={wordIndex} className="inline-block">
+                  {word.split("").map((char, charIndex) => (
+                    <motion.span
+                      key={`${wordIndex}-${charIndex}`}
+                      variants={charVariants}
+                      className={
+                        word === "Hardware" || word === "Prototyping"
+                          ? "bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent"
+                          : word === "and"
+                          ? "text-[#00BFFF]/60"
+                          : ""
+                      }
+                      style={{ display: "inline-block" }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                  {wordIndex < words.length - 1 && <span> </span>}
+                  {wordIndex === 3 && <br />}
+                </span>
+              ))}
+            </motion.h1>
 
-            <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
               A detail-oriented electronics engineer specializing in high-speed
               board design, embedded firmware, and rapid prototyping using KiCad,
               C++, and Python.
@@ -92,7 +139,7 @@ export default function Home() {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-[#00ff88] text-[#0a0a0a] hover:bg-[#00BFFF] shadow-[0_0_20px_rgba(0,255,136,0.3)] hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] font-semibold transition-all duration-300"
+                  className="bg-[#00BFFF] text-white hover:bg-[#00BFFF]/90 shadow-[0_0_20px_rgba(0,191,255,0.3)] hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] hover:-translate-y-1 font-semibold transition-all duration-300"
                 >
                   Discuss Your Project
                   <ArrowRight className="ml-2" size={20} />
@@ -102,7 +149,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-[#00BFFF] text-[#00BFFF] hover:bg-[#00BFFF]/10 hover:shadow-[0_0_20px_rgba(0,191,255,0.3)] transition-all duration-300"
+                  className="border-[#00BFFF] text-[#00BFFF] hover:bg-[#00BFFF]/10 hover:shadow-[0_0_20px_rgba(0,191,255,0.3)] hover:-translate-y-1 transition-all duration-300"
                 >
                   View My Work
                 </Button>
