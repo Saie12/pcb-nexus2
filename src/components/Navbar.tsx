@@ -175,6 +175,15 @@ export default function Navbar() {
       <AnimatePresence>
         {isCollapsed && (
           <motion.div
+            drag
+            dragMomentum={false}
+            dragElastic={0.1}
+            dragConstraints={{
+              top: 0,
+              left: 0,
+              right: window.innerWidth - 56,
+              bottom: window.innerHeight - 56,
+            }}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
@@ -188,7 +197,7 @@ export default function Navbar() {
           >
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#00ff88] via-[#00BFFF] to-[#0088ff] flex items-center justify-center cursor-pointer overflow-hidden group"
+              className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#00ff88] via-[#00BFFF] to-[#0088ff] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               animate={{
