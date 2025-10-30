@@ -32,26 +32,31 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Full Navbar */}
+      {/* Full Navbar that morphs into ball */}
       <motion.nav
         initial={{ opacity: 1 }}
         animate={{ 
           opacity: isCollapsed ? 0 : 1,
-          scale: isCollapsed ? 0.3 : 1,
-          y: isCollapsed ? -50 : 0,
+          scale: isCollapsed ? 0.15 : 1,
+          y: isCollapsed ? -20 : 0,
           x: isCollapsed ? window.innerWidth / 2 - 100 : 0,
-          borderRadius: isCollapsed ? "50%" : "0px",
+          borderRadius: isCollapsed ? "9999px" : "0px",
           pointerEvents: isCollapsed ? "none" : "auto"
         }}
         transition={{ 
-          duration: 0.6,
+          duration: 0.7,
           ease: [0.32, 0.72, 0, 1],
-          scale: { duration: 0.5 },
-          borderRadius: { duration: 0.4 }
+          scale: { duration: 0.6, ease: [0.68, -0.55, 0.265, 1.55] },
+          borderRadius: { duration: 0.5 },
+          x: { duration: 0.6, ease: [0.68, -0.55, 0.265, 1.55] },
+          y: { duration: 0.6, ease: [0.68, -0.55, 0.265, 1.55] }
         }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "navbar-glass border-b border-[#00ff88]/20" : "bg-[#0a0a0a]/80 backdrop-blur-lg border-b border-[#00ff88]/20"
         }`}
+        style={{
+          transformOrigin: "top right",
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -59,7 +64,6 @@ export default function Navbar() {
               animate={{
                 scale: isCollapsed ? 0 : 1,
                 opacity: isCollapsed ? 0 : 1,
-                x: isCollapsed ? 200 : 0,
               }}
               transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
             >
@@ -92,12 +96,12 @@ export default function Navbar() {
                   animate={{
                     scale: isCollapsed ? 0 : 1,
                     opacity: isCollapsed ? 0 : 1,
-                    x: isCollapsed ? -100 - (index * 20) : 0,
+                    x: isCollapsed ? 100 + (index * 20) : 0,
                   }}
                   transition={{ 
-                    duration: 0.4, 
-                    delay: isCollapsed ? index * 0.02 : 0,
-                    ease: [0.32, 0.72, 0, 1]
+                    duration: 0.5, 
+                    delay: isCollapsed ? 0 : index * 0.03,
+                    ease: [0.68, -0.55, 0.265, 1.55]
                   }}
                 >
                   <Link to={link.path}>
@@ -167,7 +171,7 @@ export default function Navbar() {
         </AnimatePresence>
       </motion.nav>
 
-      {/* Assistive Ball (Collapsed State) */}
+      {/* Assistive Ball (appears from the collapsed navbar) */}
       <AnimatePresence>
         {isCollapsed && (
           <motion.div
@@ -177,8 +181,8 @@ export default function Navbar() {
             transition={{ 
               type: "spring", 
               stiffness: 400, 
-              damping: 30,
-              delay: 0.2
+              damping: 25,
+              delay: 0.3
             }}
             className="fixed top-6 right-6 z-50"
           >
