@@ -115,17 +115,19 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    cursor: none;
   }
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
+    cursor: none;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Share Tech Mono', monospace;
   }
   button:not([disabled]),
   [role="button"]:not([disabled]) {
-    cursor: pointer;
+    cursor: none;
   }
 }
 

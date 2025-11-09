@@ -8,6 +8,7 @@ import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
+import CustomCursor from "@/components/CustomCursor.tsx";
 import Landing from "./pages/Landing.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Services from "./pages/Services.tsx";
@@ -45,6 +46,7 @@ function RouteSyncer() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <VlyToolbar />
+    <CustomCursor />
     <InstrumentationProvider>
       <ConvexAuthProvider client={convex}>
         <BrowserRouter>

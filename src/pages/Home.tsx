@@ -9,6 +9,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Shuffle from "@/components/Shuffle";
 
 export default function Home() {
   const featuredProjects = useQuery(api.projects.getFeatured);
@@ -138,33 +139,15 @@ export default function Home() {
             </motion.div>
 
             <motion.h1
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
               className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             >
-              {words.map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-block">
-                  {word.split("").map((char, charIndex) => (
-                    <motion.span
-                      key={`${wordIndex}-${charIndex}`}
-                      variants={charVariants}
-                      className={
-                        word === "Hardware" || word === "Prototyping"
-                          ? "bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent"
-                          : word === "and"
-                          ? "text-[#00BFFF]/60"
-                          : ""
-                      }
-                      style={{ display: "inline-block" }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                  {wordIndex < words.length - 1 && <span> </span>}
-                  {wordIndex === 3 && <br />}
-                </span>
-              ))}
+              <Shuffle text="Expert PCB Design" className="block mb-2" />
+              <span className="text-[#00BFFF]/60">and</span>
+              <br />
+              <Shuffle text="Hardware Prototyping" className="block bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent" delay={200} />
             </motion.h1>
 
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
