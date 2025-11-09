@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router";
+import Shuffle from "@/components/Shuffle";
 
 export default function HeroSection() {
   return (
@@ -15,19 +16,30 @@ export default function HeroSection() {
         >
           <div className="space-y-4">
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-balance">
-              PCB Design &<br />Hardware Prototyping
+              <Shuffle text="PCB Design &" className="block" />
+              <Shuffle text="Hardware Prototyping" className="block" delay={200} />
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl">
+            <motion.p 
+              className="text-xl text-muted-foreground max-w-2xl"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
               Electronics engineer specializing in high-speed board design, 
               embedded firmware, and rapid prototyping using KiCad, C++, and Python.
-            </p>
+            </motion.p>
           </div>
 
-          <div className="flex flex-wrap gap-4">
+          <motion.div 
+            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
             <Link to="/projects">
-              <Button size="lg" className="gap-2">
+              <Button size="lg" className="gap-2 group">
                 View Work
-                <ArrowRight size={16} />
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/contact">
@@ -35,18 +47,26 @@ export default function HeroSection() {
                 Get in Touch
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="pt-8 flex flex-wrap gap-3">
-            {["KiCad", "C++", "Python", "ARM Cortex-M", "High-Speed Design"].map((skill) => (
-              <span
+          <motion.div 
+            className="pt-8 flex flex-wrap gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            {["KiCad", "C++", "Python", "ARM Cortex-M", "High-Speed Design"].map((skill, index) => (
+              <motion.span
                 key={skill}
-                className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full"
+                className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full hover:scale-105 transition-transform cursor-default"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9 + index * 0.1, duration: 0.4 }}
               >
                 {skill}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

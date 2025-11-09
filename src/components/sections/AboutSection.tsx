@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Code, Cpu, Zap, GitBranch } from "lucide-react";
+import Shuffle from "@/components/Shuffle";
 
 export default function AboutSection() {
   const skills = [
@@ -44,17 +45,23 @@ export default function AboutSection() {
     <motion.section
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-background"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">
-          About <span className="text-[#00BFFF]">Me</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
+          <Shuffle text="About Me" />
         </h2>
-        <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+        <motion.p 
+          className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
           Passionate about turning innovative ideas into functional hardware
-        </p>
+        </motion.p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div
@@ -63,26 +70,36 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="bg-[#111111] border-[#00ff88]/20 h-full">
+            <Card className="bg-card border-border h-full hover:shadow-lg transition-shadow">
               <CardContent className="p-8">
-                <h3 className="text-3xl font-bold text-white mb-6">
+                <h3 className="text-3xl font-bold text-foreground mb-6">
                   Personal Bio
                 </h3>
-                <div className="space-y-4 text-gray-400">
-                  <p>
+                <div className="space-y-4 text-muted-foreground">
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                  >
                     I'm a passionate electronics engineer with a deep fascination
                     for turning innovative ideas into functional hardware. My
                     journey in PCB design began with a curiosity about how
                     electronic devices work, and it has evolved into a
                     professional expertise in creating high-quality, reliable
                     circuit boards.
-                  </p>
-                  <p>
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                  >
                     With hands-on experience in KiCad, embedded systems
                     programming, and hardware prototyping, I specialize in
                     designing PCBs that meet stringent performance requirements
                     while maintaining manufacturability.
-                  </p>
+                  </motion.p>
                 </div>
               </CardContent>
             </Card>
@@ -94,9 +111,9 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <Card className="bg-[#111111] border-[#00ff88]/20 h-full">
+            <Card className="bg-card border-border h-full hover:shadow-lg transition-shadow">
               <CardContent className="p-8">
-                <h3 className="text-3xl font-bold text-white mb-6">
+                <h3 className="text-3xl font-bold text-foreground mb-6">
                   Core Competencies
                 </h3>
                 <div className="space-y-6">
@@ -107,18 +124,23 @@ export default function AboutSection() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.6 + index * 0.1 }}
+                      whileHover={{ x: 5 }}
                     >
                       <div className="flex items-start">
-                        <div className="w-10 h-10 bg-[#00ff88]/10 border border-[#00ff88]/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                          <skill.icon size={20} className="text-[#00ff88]" />
-                        </div>
+                        <motion.div 
+                          className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center mr-3 flex-shrink-0"
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          <skill.icon size={20} className="text-foreground" />
+                        </motion.div>
                         <div>
-                          <h4 className="text-white font-semibold mb-2">
+                          <h4 className="text-foreground font-semibold mb-2">
                             {skill.category}
                           </h4>
                           <ul className="space-y-1">
                             {skill.items.map((item) => (
-                              <li key={item} className="text-gray-400 text-sm">
+                              <li key={item} className="text-muted-foreground text-sm">
                                 • {item}
                               </li>
                             ))}

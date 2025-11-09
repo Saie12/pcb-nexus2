@@ -1,9 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const location = useLocation();
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const backgroundColor = useTransform(
+    scrollY,
+    [0, 100],
+    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.8)"]
+  );
+
+  const borderOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange((latest) => {
+      setIsScrolled(latest > 50);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
 
   const navLinks = [
     { name: "Work", path: "/projects" },
@@ -15,11 +33,22 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <motion.nav 
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border"
+      style={{ 
+        backgroundColor,
+        borderBottomColor: useTransform(borderOpacity, (o) => `rgba(0, 0, 0, ${o * 0.1})`)
+      }}
+    >
       <div className="max-w-6xl mx-auto px-6 sm:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="text-lg font-semibold tracking-tight">
-            Saiesh Sasane
+            <motion.span
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              Saiesh Sasane
+            </motion.span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
@@ -38,6 +67,7 @@ export default function Navbar() {
                     <motion.div
                       layoutId="navbar-indicator"
                       className="absolute bottom-0 left-0 right-0 h-px bg-foreground"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
                 </Button>
@@ -52,6 +82,14 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </nav>
+
+      {/* Scroll Progress Indicator */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground origin-left"
+        style={{
+          scaleX: useTransform(scrollY, [0, 1000], [0, 1]),
+        }}
+      />
+    </motion.nav>
   );
 }
