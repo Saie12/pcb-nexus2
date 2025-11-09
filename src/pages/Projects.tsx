@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCarousel from "@/components/ProjectCarousel";
 import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -10,7 +10,7 @@ export default function Projects() {
   const projects = useQuery(api.projects.list);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -21,44 +21,26 @@ export default function Projects() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              My <span className="text-[#00ff88]">Projects</span>
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+              My <span className="text-primary">Projects</span>
             </h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               A showcase of my PCB design work, embedded systems projects, and
               hardware prototypes demonstrating technical expertise and
-              problem-solving abilities.
+              problem-solving abilities. Drag to explore.
             </p>
           </motion.div>
 
           {!projects ? (
             <div className="flex justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-[#00ff88]" />
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
           ) : projects.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-400">No projects yet. Check back soon!</p>
+              <p className="text-muted-foreground">No projects yet. Check back soon!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={project._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <ProjectCard
-                    title={project.title}
-                    summary={project.summary}
-                    image={project.heroImage}
-                    slug={project.slug}
-                    technologies={project.technologies}
-                  />
-                </motion.div>
-              ))}
-            </div>
+            <ProjectCarousel projects={projects} />
           )}
         </div>
       </section>

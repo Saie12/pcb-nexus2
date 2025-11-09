@@ -64,12 +64,12 @@ export default function ProjectCard({
           transition: { duration: 0.3 }
         }}
       >
-        <Card className="bg-[#1a1a1a] border-[#00ff88]/20 hover:border-[#00BFFF] hover:shadow-[0_0_40px_rgba(0,191,255,0.4)] transition-all duration-300 overflow-hidden group cursor-pointer relative">
-          {/* 3D Depth Layer */}
+        <Card className="bg-card border-border hover:border-foreground/20 hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer relative">
+          {/* 3D Depth Layer - THIS IS THE 3D EFFECT */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-[#00ff88]/5 via-transparent to-[#00BFFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{
-              transform: "translateZ(20px)",
+              transform: "translateZ(20px)", // 3D depth effect
             }}
           />
           
@@ -79,12 +79,12 @@ export default function ProjectCard({
               alt={title}
               className="w-full h-full object-cover"
               style={{
-                transform: "translateZ(30px)",
+                transform: "translateZ(30px)", // 3D image depth
               }}
               whileHover={{ scale: 1.15 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/50 to-transparent opacity-70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-70" />
             
             {/* Floating particles effect */}
             <motion.div
@@ -96,7 +96,7 @@ export default function ProjectCard({
               {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 bg-[#00BFFF] rounded-full"
+                  className="absolute w-1 h-1 bg-primary rounded-full"
                   style={{
                     left: `${20 + i * 15}%`,
                     top: `${30 + i * 10}%`,
@@ -117,22 +117,22 @@ export default function ProjectCard({
           
           <CardContent className="p-6 relative" style={{ transform: "translateZ(40px)" }}>
             <motion.h3 
-              className="text-xl font-bold text-white mb-2 group-hover:text-[#00BFFF] transition-colors duration-300"
-              style={{ transform: "translateZ(50px)" }}
+              className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300"
+              style={{ transform: "translateZ(50px)" }} // 3D text depth
             >
               {title}
             </motion.h3>
-            <p className="text-gray-400 text-sm mb-4 line-clamp-2">{summary}</p>
+            <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{summary}</p>
             
             <div className="flex flex-wrap gap-2 mb-4">
               {technologies.slice(0, 3).map((tech, index) => (
                 <motion.span
                   key={tech}
-                  className="px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-xs rounded border border-[#00ff88]/20"
-                  style={{ transform: `translateZ(${60 + index * 5}px)` }}
+                  className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded border border-border"
+                  style={{ transform: `translateZ(${60 + index * 5}px)` }} // 3D tag depth
                   whileHover={{ 
                     scale: 1.1,
-                    backgroundColor: "rgba(0, 255, 136, 0.2)",
+                    backgroundColor: "var(--accent)",
                   }}
                 >
                   {tech}
@@ -141,7 +141,7 @@ export default function ProjectCard({
             </div>
             
             <motion.div 
-              className="flex items-center text-[#00BFFF] text-sm font-medium group-hover:gap-2 transition-all"
+              className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all"
               style={{ transform: "translateZ(70px)" }}
             >
               View Details
@@ -162,7 +162,8 @@ export default function ProjectCard({
           <motion.div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none"
             style={{
-              background: "radial-gradient(circle at center, rgba(0, 191, 255, 0.1) 0%, transparent 70%)",
+              background: "radial-gradient(circle at center, var(--primary) 0%, transparent 70%)",
+              opacity: 0.1,
             }}
             animate={{
               scale: [1, 1.2, 1],

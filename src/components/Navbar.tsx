@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const location = useLocation();
@@ -12,6 +13,12 @@ export default function Navbar() {
     scrollY,
     [0, 100],
     ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.8)"]
+  );
+
+  const backgroundColorDark = useTransform(
+    scrollY,
+    [0, 100],
+    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.8)"]
   );
 
   const borderOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -36,7 +43,7 @@ export default function Navbar() {
     <motion.nav 
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border"
       style={{ 
-        backgroundColor,
+        backgroundColor: backgroundColorDark,
         borderBottomColor: useTransform(borderOpacity, (o) => `rgba(0, 0, 0, ${o * 0.1})`)
       }}
     >
@@ -73,9 +80,11 @@ export default function Navbar() {
                 </Button>
               </Link>
             ))}
+            <ThemeToggle />
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" size="sm">
               Menu
             </Button>
