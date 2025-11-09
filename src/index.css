@@ -124,6 +124,14 @@
     font-weight: 600;
     letter-spacing: -0.02em;
   }
+  
+  /* Apple-style glassmorphism support */
+  @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+    .glass-nav {
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+  }
 }
 
 @layer utilities {
