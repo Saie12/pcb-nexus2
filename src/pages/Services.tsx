@@ -65,55 +65,74 @@ export default function Services() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              My <span className="text-[#00ff88]">Services</span>
-            </h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              My <span className="bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent">Services</span>
+            </motion.h1>
+            <motion.p 
+              className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
               I offer a range of hardware design and development services to help
               you build and test your electronic products efficiently. Below are
               the core services I provide.
-            </p>
+            </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
+                whileHover={{ y: -10, scale: 1.02 }}
               >
-                <Card className="bg-[#111111] border-[#00ff88]/20 hover:border-[#00ff88] hover:shadow-[0_0_30px_rgba(0,255,136,0.2)] transition-all h-full">
+                <Card className="bg-[#111111] border-[#00ff88]/20 hover:border-[#00BFFF] hover:shadow-[0_0_30px_rgba(0,191,255,0.2)] transition-all duration-300 h-full">
                   <CardHeader>
-                    <div
+                    <motion.div
                       className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
                       style={{
                         backgroundColor: `${service.color}20`,
                         border: `1px solid ${service.color}40`,
-                        boxShadow: `0 0 20px ${service.color}30`,
                       }}
+                      whileHover={{
+                        scale: 1.1,
+                        boxShadow: `0 0 30px ${service.color}50`,
+                      }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
                       <service.icon
                         size={28}
                         style={{ color: service.color }}
                       />
-                    </div>
-                    <CardTitle className="text-2xl text-white">
+                    </motion.div>
+                    <CardTitle className="text-xl sm:text-2xl text-white">
                       {service.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-400 mb-6">{service.description}</p>
+                    <p className="text-gray-400 text-sm sm:text-base mb-6">{service.description}</p>
                     <div>
                       <h4 className="text-white font-semibold mb-3">
                         Deliverables:
                       </h4>
                       <ul className="space-y-2">
-                        {service.deliverables.map((item) => (
-                          <li
+                        {service.deliverables.map((item, idx) => (
+                          <motion.li
                             key={item}
-                            className="flex items-start text-gray-400"
+                            className="flex items-start text-gray-400 text-sm sm:text-base"
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 * idx }}
                           >
                             <CheckCircle
                               size={18}
@@ -121,7 +140,7 @@ export default function Services() {
                               style={{ color: service.color }}
                             />
                             <span>{item}</span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>

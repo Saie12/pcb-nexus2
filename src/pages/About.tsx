@@ -55,32 +55,48 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              About <span className="text-[#00ff88]">Me</span>
-            </h1>
+            <motion.h1 
+              className="text-5xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              About <span className="bg-gradient-to-r from-[#00ff88] via-[#00BFFF] to-[#ff0080] bg-clip-text text-transparent">Me</span>
+            </motion.h1>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <Card className="bg-[#111111] border-[#00ff88]/20 h-full">
-                <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold text-white mb-6">
+              <Card className="bg-[#111111] border-[#00ff88]/20 h-full hover:border-[#00BFFF] hover:shadow-[0_0_30px_rgba(0,191,255,0.2)] transition-all duration-300">
+                <CardContent className="p-6 sm:p-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
                     Personal Bio
                   </h2>
-                  <div className="space-y-4 text-gray-400">
-                    <p>
+                  <div className="space-y-4 text-gray-400 text-sm sm:text-base">
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 }}
+                    >
                       I'm a passionate electronics engineer with a deep fascination
                       for turning innovative ideas into functional hardware. My
                       journey in PCB design began with a curiosity about how
                       electronic devices work, and it has evolved into a
                       professional expertise in creating high-quality, reliable
                       circuit boards.
-                    </p>
-                    <p>
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 }}
+                    >
                       With hands-on experience in KiCad, embedded systems
                       programming, and hardware prototyping, I specialize in
                       designing PCBs that meet stringent performance requirements
@@ -88,28 +104,34 @@ export default function About() {
                       interfaces to power management circuits, I approach each
                       project with meticulous attention to detail and a commitment
                       to excellence.
-                    </p>
-                    <p>
+                    </motion.p>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.5 }}
+                    >
                       My career goal is to join an innovative team as a PCB Design
                       Engineer where I can contribute to challenging hardware
                       projects, collaborate with talented engineers, and continue
                       growing my expertise in cutting-edge electronic design. I'm
                       particularly interested in projects involving IoT devices,
                       embedded systems, and high-speed digital design.
-                    </p>
+                    </motion.p>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <Card className="bg-[#111111] border-[#00ff88]/20 h-full">
-                <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold text-white mb-6">
+              <Card className="bg-[#111111] border-[#00ff88]/20 h-full hover:border-[#00BFFF] hover:shadow-[0_0_30px_rgba(0,191,255,0.2)] transition-all duration-300">
+                <CardContent className="p-6 sm:p-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
                     Core Competencies
                   </h2>
                   <div className="space-y-6">
@@ -117,13 +139,23 @@ export default function About() {
                       <motion.div
                         key={skill.category}
                         initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
                         transition={{ delay: 0.6 + index * 0.1 }}
+                        whileHover={{ x: 5 }}
+                        className="transition-all"
                       >
                         <div className="flex items-start">
-                          <div className="w-10 h-10 bg-[#00ff88]/10 border border-[#00ff88]/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                          <motion.div 
+                            className="w-10 h-10 bg-[#00ff88]/10 border border-[#00ff88]/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0"
+                            whileHover={{ 
+                              scale: 1.1,
+                              backgroundColor: "rgba(0, 255, 136, 0.2)",
+                              boxShadow: "0 0 20px rgba(0, 255, 136, 0.3)"
+                            }}
+                          >
                             <skill.icon size={20} className="text-[#00ff88]" />
-                          </div>
+                          </motion.div>
                           <div>
                             <h3 className="text-white font-semibold mb-2">
                               {skill.category}
@@ -141,13 +173,18 @@ export default function About() {
                     ))}
                   </div>
 
-                  <Button
-                    className="w-full mt-8 bg-[#00ff88] text-[#0a0a0a] hover:bg-[#00ff88]/90 shadow-[0_0_20px_rgba(0,255,136,0.3)] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)] font-semibold"
-                    size="lg"
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <Download className="mr-2" size={20} />
-                    Download My Resume
-                  </Button>
+                    <Button
+                      className="w-full mt-8 bg-[#00BFFF] text-white hover:bg-[#00BFFF]/90 shadow-[0_0_20px_rgba(0,191,255,0.3)] hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] font-semibold transition-all duration-300"
+                      size="lg"
+                    >
+                      <Download className="mr-2" size={20} />
+                      Download My Resume
+                    </Button>
+                  </motion.div>
                 </CardContent>
               </Card>
             </motion.div>
