@@ -117,7 +117,7 @@ export default function ProjectCard({
           
           <CardContent className="p-6 relative" style={{ transform: "translateZ(40px)" }}>
             <motion.h3 
-              className="text-xl font-semibold tracking-tight text-foreground mb-2 group-hover:text-primary transition-colors duration-300"
+              className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300"
               style={{ transform: "translateZ(50px)" }} // 3D text depth
             >
               {title}

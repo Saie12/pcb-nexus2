@@ -15,7 +15,7 @@ export default function HeroSection() {
           className="space-y-8"
         >
           <div className="space-y-4">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter text-balance">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-balance">
               <Shuffle text="PCB Design &" className="block" />
               <Shuffle text="Hardware Prototyping" className="block" delay={200} />
             </h1>
