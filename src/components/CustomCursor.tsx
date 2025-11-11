@@ -97,12 +97,12 @@ export default function CustomCursor() {
   };
 
   const generateLightningBolts = () => {
-    const boltCount = Math.max(2, Math.floor(velocity * 1.8));
+    const boltCount = Math.max(2, Math.floor(velocity * 1.2));
     const speedRatio = Math.min(velocity / 10, 1);
     
     return Array.from({ length: boltCount }, (_, i) => {
       const angle = (i / boltCount) * 360 + Math.random() * 30;
-      const length = 25 + velocity * 10 + Math.random() * 15;
+      const length = 8 + velocity * 4 + Math.random() * 6;
       
       // Color transition: blue at low speed -> orange at high speed
       const blueAmount = Math.max(0, 1 - speedRatio * 1.5);
@@ -230,7 +230,7 @@ export default function CustomCursor() {
       ))}
 
       {/* Electric glow effect around the tip */}
-      {velocity > 1.5 && (
+      {velocity > 2 && (
         <motion.div
           className="fixed pointer-events-none z-[9997] rounded-full"
           style={{
