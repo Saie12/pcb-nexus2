@@ -192,59 +192,92 @@ export default function CustomCursor() {
       >
         {/* Complete Soldering Iron SVG */}
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Handle (grip) */}
-          <rect
-            x="12"
-            y="18"
-            width="8"
-            height="10"
-            rx="1"
-            fill="#2C3E50"
-            stroke="#1A252F"
+          {/* Handle (ergonomic grip) */}
+          <ellipse
+            cx="16"
+            cy="22"
+            rx="4.5"
+            ry="5"
+            fill="#34495E"
+            stroke="#2C3E50"
             strokeWidth="0.5"
           />
-          {/* Handle texture lines */}
-          <line x1="12" y1="20" x2="20" y2="20" stroke="#1A252F" strokeWidth="0.3" />
-          <line x1="12" y1="22" x2="20" y2="22" stroke="#1A252F" strokeWidth="0.3" />
-          <line x1="12" y1="24" x2="20" y2="24" stroke="#1A252F" strokeWidth="0.3" />
-          <line x1="12" y1="26" x2="20" y2="26" stroke="#1A252F" strokeWidth="0.3" />
+          {/* Handle grip texture */}
+          <path
+            d="M12 20 Q16 20.5 20 20"
+            stroke="#2C3E50"
+            strokeWidth="0.4"
+            fill="none"
+          />
+          <path
+            d="M12 22 Q16 22.5 20 22"
+            stroke="#2C3E50"
+            strokeWidth="0.4"
+            fill="none"
+          />
+          <path
+            d="M12 24 Q16 24.5 20 24"
+            stroke="#2C3E50"
+            strokeWidth="0.4"
+            fill="none"
+          />
           
-          {/* Metal shaft */}
+          {/* Metal barrel/shaft */}
           <rect
-            x="13"
+            x="14"
             y="10"
-            width="6"
-            height="8"
+            width="4"
+            height="12"
+            rx="0.5"
+            fill="#7F8C8D"
+            stroke="#5D6D7E"
+            strokeWidth="0.5"
+          />
+          
+          {/* Heating element section */}
+          <rect
+            x="14.5"
+            y="6"
+            width="3"
+            height="4"
             fill="#95A5A6"
             stroke="#7F8C8D"
-            strokeWidth="0.5"
+            strokeWidth="0.4"
           />
           
-          {/* Iron tip (pointed) */}
+          {/* Iron tip (conical) */}
           <path
-            d="M16 2 L13 10 L19 10 Z"
-            fill="#C0C0C0"
-            stroke="#808080"
+            d="M16 2 L14.5 6 L17.5 6 Z"
+            fill="#BDC3C7"
+            stroke="#95A5A6"
             strokeWidth="0.5"
           />
           
           {/* Hot tip glow */}
           <circle
             cx="16"
-            cy="4"
-            r="2.5"
+            cy="3.5"
+            r="2"
             fill={`rgb(${glowR}, ${glowG}, ${glowB})`}
             opacity={0.8 + velocity * 0.1}
             filter="url(#tip-glow)"
           />
           
-          {/* Wire/cord indicator */}
+          {/* Power cord/wire */}
           <path
-            d="M16 28 Q18 30 20 30"
+            d="M16 27 Q17 28.5 18.5 29 Q20 29.5 22 29"
             stroke="#E74C3C"
-            strokeWidth="1"
+            strokeWidth="1.2"
             fill="none"
             strokeLinecap="round"
+          />
+          <path
+            d="M16 27 Q17 28.2 18.2 28.5"
+            stroke="#C0392B"
+            strokeWidth="0.6"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.6"
           />
           
           <defs>
@@ -306,15 +339,15 @@ export default function CustomCursor() {
         </motion.svg>
       ))}
 
-      {/* Electric glow effect around the tip - reduced to half size */}
+      {/* Electric glow effect around the tip - reduced to quarter size */}
       {velocity > 2 && (
         <motion.div
           className="fixed pointer-events-none z-[9997] rounded-full"
           style={{
-            left: mousePosition.x - 25,
-            top: mousePosition.y - 25,
-            width: 50,
-            height: 50,
+            left: mousePosition.x - 12.5,
+            top: mousePosition.y - 12.5,
+            width: 25,
+            height: 25,
           }}
           animate={{
             scale: [1, 1.4, 1],
