@@ -79,7 +79,7 @@ export default function CustomCursor() {
 
   // Generate natural lightning bolt paths with jagged, branching effect
   const generateLightningPath = (angle: number, length: number) => {
-    const segments = Math.max(3, Math.floor(length / 6));
+    const segments = Math.max(4, Math.floor(length / 5));
     let path = "M 0 0";
     let currentX = 0;
     let currentY = 0;
@@ -89,22 +89,33 @@ export default function CustomCursor() {
     const baseDirectionY = Math.sin(angleRad);
     
     for (let i = 0; i < segments; i++) {
-      const segmentLength = (length / segments) * (0.7 + Math.random() * 0.6);
-      const jitter = (Math.random() - 0.5) * 20;
+      const segmentLength = (length / segments) * (0.6 + Math.random() * 0.8);
+      const jitter = (Math.random() - 0.5) * 25;
       
       currentX += baseDirectionX * segmentLength + jitter;
       currentY += baseDirectionY * segmentLength + jitter;
       
       path += ` L ${currentX} ${currentY}`;
       
-      // Add occasional branches for natural look
-      if (Math.random() > 0.7 && i < segments - 2 && i > 0) {
-        const branchLength = segmentLength * (0.3 + Math.random() * 0.4);
-        const branchAngle = (Math.random() - 0.5) * 70;
+      // Add multiple branches for more natural thunderbolt look
+      if (Math.random() > 0.6 && i < segments - 1 && i > 0) {
+        const branchLength = segmentLength * (0.4 + Math.random() * 0.5);
+        const branchAngle = (Math.random() - 0.5) * 80;
         const branchRad = ((angle + branchAngle) * Math.PI) / 180;
         const branchX = currentX + Math.cos(branchRad) * branchLength;
         const branchY = currentY + Math.sin(branchRad) * branchLength;
         path += ` M ${currentX} ${currentY} L ${branchX} ${branchY}`;
+        
+        // Add sub-branches occasionally
+        if (Math.random() > 0.7) {
+          const subBranchLength = branchLength * 0.5;
+          const subBranchAngle = branchAngle + (Math.random() - 0.5) * 60;
+          const subBranchRad = ((angle + subBranchAngle) * Math.PI) / 180;
+          const subBranchX = branchX + Math.cos(subBranchRad) * subBranchLength;
+          const subBranchY = branchY + Math.sin(subBranchRad) * subBranchLength;
+          path += ` M ${branchX} ${branchY} L ${subBranchX} ${subBranchY}`;
+        }
+        
         path += ` M ${currentX} ${currentY}`;
       }
     }
@@ -113,41 +124,46 @@ export default function CustomCursor() {
   };
 
   const generateLightningBolts = () => {
-    // Clear speed thresholds
-    // 0-1: no bolts
-    // 1-3: 2-3 bolts, 8-12px length
-    // 3-6: 3-5 bolts, 12-20px length
-    // 6-10: 5-8 bolts, 20-30px length
+    // Clear speed thresholds with distinct slow/fast categories
+    // 0-2: no bolts (very slow)
+    // 2-4: 2-3 bolts, 8-12px length, BLUE only
+    // 4-6: 3-4 bolts, 12-18px length, blue to orange transition starts
+    // 6-10: 4-6 bolts, 15-25px length, ORANGE dominant
     
     let boltCount: number;
     let baseLength: number;
     
-    if (velocity < 1) {
+    if (velocity < 2) {
       return [];
-    } else if (velocity < 3) {
+    } else if (velocity < 4) {
+      // Slow category - pure blue
       boltCount = 2 + Math.floor(Math.random() * 2);
-      baseLength = 8 + velocity * 1.5;
+      baseLength = 8 + velocity * 1.2;
     } else if (velocity < 6) {
-      boltCount = 3 + Math.floor(velocity * 0.5);
-      baseLength = 12 + velocity * 1.5;
+      // Medium category - transition begins
+      boltCount = 3 + Math.floor(Math.random() * 2);
+      baseLength = 12 + velocity * 1.3;
     } else {
-      boltCount = 5 + Math.floor(velocity * 0.4);
-      baseLength = 20 + velocity * 1.2;
+      // Fast category - orange dominant
+      boltCount = 4 + Math.floor(Math.random() * 3);
+      baseLength = 15 + velocity * 1.5;
     }
     
-    const speedRatio = Math.min(velocity / 10, 1);
+    // Speed ratio for color transition: 0 at velocity 2, 1 at velocity 8
+    const speedRatio = Math.max(0, Math.min((velocity - 2) / 6, 1));
     
     return Array.from({ length: boltCount }, (_, i) => {
       const angle = (i / boltCount) * 360 + Math.random() * 40;
       const length = baseLength + Math.random() * 5;
       
-      // Smooth color transition: blue (0,136,255) -> orange (255,107,53)
-      const blueAmount = Math.max(0, 1 - speedRatio * 1.3);
-      const orangeAmount = Math.min(1, speedRatio * 1.1);
+      // Smooth color transition: blue (0,136,255) -> orange (255,140,0)
+      // Keep blue dominant until velocity > 4
+      const blueAmount = Math.max(0, 1 - speedRatio * 1.5);
+      const orangeAmount = Math.min(1, speedRatio * 1.3);
       
       const r = Math.floor(0 * blueAmount + 255 * orangeAmount);
-      const g = Math.floor(136 * blueAmount + 107 * orangeAmount);
-      const b = Math.floor(255 * blueAmount + 53 * orangeAmount);
+      const g = Math.floor(136 * blueAmount + 140 * orangeAmount);
+      const b = Math.floor(255 * blueAmount + 0 * orangeAmount);
       
       return {
         id: `${i}-${Date.now()}`,
@@ -155,8 +171,8 @@ export default function CustomCursor() {
         length,
         path: generateLightningPath(angle, length),
         color: `rgb(${r}, ${g}, ${b})`,
-        opacity: 0.6 + speedRatio * 0.3,
-        strokeWidth: 1.2 + speedRatio * 0.5,
+        opacity: 0.7 + speedRatio * 0.25,
+        strokeWidth: 1.5 + speedRatio * 0.8,
       };
     });
   };
@@ -263,16 +279,16 @@ export default function CustomCursor() {
             filter="url(#tip-glow)"
           />
           
-          {/* Power cord/wire */}
+          {/* Power cord/wire - connected to handle bottom */}
           <path
-            d="M16 27 Q17 28.5 18.5 29 Q20 29.5 22 29"
+            d="M14 27 Q12 28.5 10 29.5 Q8 30 6 30"
             stroke="#E74C3C"
             strokeWidth="1.2"
             fill="none"
             strokeLinecap="round"
           />
           <path
-            d="M16 27 Q17 28.2 18.2 28.5"
+            d="M14 27 Q12.5 28 11.5 28.5"
             stroke="#C0392B"
             strokeWidth="0.6"
             fill="none"
@@ -340,7 +356,7 @@ export default function CustomCursor() {
       ))}
 
       {/* Electric glow effect around the tip - reduced to quarter size */}
-      {velocity > 2 && (
+      {velocity > 3 && (
         <motion.div
           className="fixed pointer-events-none z-[9997] rounded-full"
           style={{
