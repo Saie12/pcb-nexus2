@@ -61,28 +61,33 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  // Generate lightning bolt paths with jagged, branching effect
+  // Generate natural lightning bolt paths with jagged, branching effect
   const generateLightningPath = (angle: number, length: number) => {
-    const segments = Math.floor(length / 10);
+    const segments = Math.floor(length / 8) + 3;
     let path = "M 0 0";
     let currentX = 0;
     let currentY = 0;
     
+    const angleRad = (angle * Math.PI) / 180;
+    const baseDirectionX = Math.cos(angleRad);
+    const baseDirectionY = Math.sin(angleRad);
+    
     for (let i = 0; i < segments; i++) {
-      const segmentLength = length / segments;
-      const offsetX = (Math.random() - 0.5) * 15;
-      const offsetY = segmentLength;
+      const segmentLength = (length / segments) * (0.8 + Math.random() * 0.4);
+      const jitter = (Math.random() - 0.5) * 25;
       
-      currentX += offsetX;
-      currentY += offsetY;
+      currentX += baseDirectionX * segmentLength + jitter;
+      currentY += baseDirectionY * segmentLength + jitter;
       
       path += ` L ${currentX} ${currentY}`;
       
-      // Add occasional branches
-      if (Math.random() > 0.7 && i < segments - 1) {
-        const branchLength = segmentLength * 0.6;
-        const branchX = currentX + (Math.random() - 0.5) * 20;
-        const branchY = currentY + branchLength;
+      // Add occasional branches for natural look
+      if (Math.random() > 0.65 && i < segments - 2) {
+        const branchLength = segmentLength * (0.4 + Math.random() * 0.3);
+        const branchAngle = (Math.random() - 0.5) * 60;
+        const branchRad = ((angle + branchAngle) * Math.PI) / 180;
+        const branchX = currentX + Math.cos(branchRad) * branchLength;
+        const branchY = currentY + Math.sin(branchRad) * branchLength;
         path += ` M ${currentX} ${currentY} L ${branchX} ${branchY}`;
         path += ` M ${currentX} ${currentY}`;
       }
@@ -92,21 +97,40 @@ export default function CustomCursor() {
   };
 
   const generateLightningBolts = () => {
-    const boltCount = Math.floor(velocity * 1.5);
+    const boltCount = Math.max(2, Math.floor(velocity * 1.8));
+    const speedRatio = Math.min(velocity / 10, 1);
+    
     return Array.from({ length: boltCount }, (_, i) => {
-      const angle = (i / boltCount) * Math.PI * 2;
-      const length = 30 + velocity * 8;
+      const angle = (i / boltCount) * 360 + Math.random() * 30;
+      const length = 25 + velocity * 10 + Math.random() * 15;
+      
+      // Color transition: blue at low speed -> orange at high speed
+      const blueAmount = Math.max(0, 1 - speedRatio * 1.5);
+      const orangeAmount = Math.min(1, speedRatio * 1.2);
+      
+      const r = Math.floor(0 * blueAmount + 255 * orangeAmount);
+      const g = Math.floor(136 * blueAmount + 107 * orangeAmount);
+      const b = Math.floor(255 * blueAmount + 53 * orangeAmount);
+      
       return {
         id: i,
         angle,
         length,
         path: generateLightningPath(angle, length),
-        opacity: 0.4 + velocity * 0.06,
+        color: `rgb(${r}, ${g}, ${b})`,
+        opacity: 0.5 + velocity * 0.05 + Math.random() * 0.2,
+        strokeWidth: 1.5 + velocity * 0.3,
       };
     });
   };
 
-  const lightningBolts = generateLightningBolts();
+  const lightningBolts = velocity > 0.5 ? generateLightningBolts() : [];
+
+  // Calculate glow color based on speed
+  const speedRatio = Math.min(velocity / 10, 1);
+  const glowR = Math.floor(0 * (1 - speedRatio) + 255 * speedRatio);
+  const glowG = Math.floor(136 * (1 - speedRatio) + 107 * speedRatio);
+  const glowB = Math.floor(255 * (1 - speedRatio) + 53 * speedRatio);
 
   return (
     <>
@@ -143,7 +167,7 @@ export default function CustomCursor() {
             cx="12"
             cy="3"
             r="2"
-            fill="#FF6B35"
+            fill={`rgb(${glowR}, ${glowG}, ${glowB})`}
             opacity={0.8 + velocity * 0.1}
             filter="url(#tip-glow)"
           />
@@ -167,32 +191,36 @@ export default function CustomCursor() {
           style={{
             left: mousePosition.x,
             top: mousePosition.y,
-            width: bolt.length * 2,
-            height: bolt.length * 2,
-            transform: `rotate(${(bolt.angle * 180) / Math.PI}deg)`,
-            transformOrigin: "0 0",
+            width: bolt.length * 2.5,
+            height: bolt.length * 2.5,
+            overflow: "visible",
           }}
+          initial={{ opacity: 0 }}
           animate={{
-            opacity: [bolt.opacity, bolt.opacity * 0.6, bolt.opacity],
+            opacity: [bolt.opacity, bolt.opacity * 0.7, bolt.opacity],
           }}
           transition={{
-            duration: 0.1,
+            duration: 0.08 + Math.random() * 0.05,
             repeat: Infinity,
             repeatType: "reverse",
           }}
         >
-          <path
-            d={bolt.path}
-            stroke="#FF6B35"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            filter="url(#lightning-glow)"
-          />
+          <g transform={`rotate(${bolt.angle} 0 0)`}>
+            <path
+              d={bolt.path}
+              stroke={bolt.color}
+              strokeWidth={bolt.strokeWidth}
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#lightning-glow)"
+            />
+          </g>
           <defs>
             <filter id="lightning-glow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
               <feMerge>
+                <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
@@ -202,21 +230,21 @@ export default function CustomCursor() {
       ))}
 
       {/* Electric glow effect around the tip */}
-      {velocity > 2 && (
+      {velocity > 1.5 && (
         <motion.div
           className="fixed pointer-events-none z-[9997] rounded-full"
           style={{
-            left: mousePosition.x - 40,
-            top: mousePosition.y - 40,
-            width: 80,
-            height: 80,
+            left: mousePosition.x - 50,
+            top: mousePosition.y - 50,
+            width: 100,
+            height: 100,
           }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.4, 0.7, 0.4],
+            scale: [1, 1.4, 1],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 0.2,
+            duration: 0.15,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -224,8 +252,8 @@ export default function CustomCursor() {
           <div
             className="w-full h-full rounded-full"
             style={{
-              background: `radial-gradient(circle, rgba(255, 107, 53, ${velocity * 0.15}) 0%, transparent 70%)`,
-              boxShadow: `0 0 ${velocity * 8}px rgba(255, 107, 53, ${velocity * 0.2})`,
+              background: `radial-gradient(circle, rgba(${glowR}, ${glowG}, ${glowB}, ${velocity * 0.12}) 0%, transparent 70%)`,
+              boxShadow: `0 0 ${velocity * 10}px rgba(${glowR}, ${glowG}, ${glowB}, ${velocity * 0.25})`,
             }}
           />
         </motion.div>
