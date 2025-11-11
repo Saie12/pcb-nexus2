@@ -171,14 +171,14 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Soldering Iron Tip Cursor */}
+      {/* Complete Soldering Iron Cursor */}
       <motion.div
         className="fixed pointer-events-none z-[9999] mix-blend-difference"
         style={{ 
           x: cursorX, 
           y: cursorY,
-          left: -12,
-          top: -12,
+          left: -16,
+          top: -16,
         }}
         animate={{
           scale: isHovering ? 1.3 : isClicking ? 0.9 : 1 + velocity * 0.08,
@@ -190,24 +190,63 @@ export default function CustomCursor() {
           damping: 25,
         }}
       >
-        {/* Soldering Iron Tip SVG */}
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Complete Soldering Iron SVG */}
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Handle (grip) */}
+          <rect
+            x="12"
+            y="18"
+            width="8"
+            height="10"
+            rx="1"
+            fill="#2C3E50"
+            stroke="#1A252F"
+            strokeWidth="0.5"
+          />
+          {/* Handle texture lines */}
+          <line x1="12" y1="20" x2="20" y2="20" stroke="#1A252F" strokeWidth="0.3" />
+          <line x1="12" y1="22" x2="20" y2="22" stroke="#1A252F" strokeWidth="0.3" />
+          <line x1="12" y1="24" x2="20" y2="24" stroke="#1A252F" strokeWidth="0.3" />
+          <line x1="12" y1="26" x2="20" y2="26" stroke="#1A252F" strokeWidth="0.3" />
+          
+          {/* Metal shaft */}
+          <rect
+            x="13"
+            y="10"
+            width="6"
+            height="8"
+            fill="#95A5A6"
+            stroke="#7F8C8D"
+            strokeWidth="0.5"
+          />
+          
           {/* Iron tip (pointed) */}
           <path
-            d="M12 2 L8 8 L10 8 L10 14 L14 14 L14 8 L16 8 Z"
+            d="M16 2 L13 10 L19 10 Z"
             fill="#C0C0C0"
             stroke="#808080"
             strokeWidth="0.5"
           />
+          
           {/* Hot tip glow */}
           <circle
-            cx="12"
-            cy="3"
-            r="2"
+            cx="16"
+            cy="4"
+            r="2.5"
             fill={`rgb(${glowR}, ${glowG}, ${glowB})`}
             opacity={0.8 + velocity * 0.1}
             filter="url(#tip-glow)"
           />
+          
+          {/* Wire/cord indicator */}
+          <path
+            d="M16 28 Q18 30 20 30"
+            stroke="#E74C3C"
+            strokeWidth="1"
+            fill="none"
+            strokeLinecap="round"
+          />
+          
           <defs>
             <filter id="tip-glow">
               <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
@@ -267,15 +306,15 @@ export default function CustomCursor() {
         </motion.svg>
       ))}
 
-      {/* Electric glow effect around the tip */}
+      {/* Electric glow effect around the tip - reduced to half size */}
       {velocity > 2 && (
         <motion.div
           className="fixed pointer-events-none z-[9997] rounded-full"
           style={{
-            left: mousePosition.x - 50,
-            top: mousePosition.y - 50,
-            width: 100,
-            height: 100,
+            left: mousePosition.x - 25,
+            top: mousePosition.y - 25,
+            width: 50,
+            height: 50,
           }}
           animate={{
             scale: [1, 1.4, 1],
