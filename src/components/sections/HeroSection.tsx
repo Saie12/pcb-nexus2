@@ -41,7 +41,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.5 }}
             >
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-balance text-white" style={{ fontFamily: "'Kaftan Serif', serif" }}>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-balance text-gray-200" style={{ fontFamily: "'Rubik Bubbles', cursive" }}>
                 <Shuffle text="PCB Design &" className="block" />
                 <Shuffle text="Hardware Prototyping" className="block" delay={200} />
               </h1>
