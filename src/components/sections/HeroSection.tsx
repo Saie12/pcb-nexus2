@@ -42,8 +42,13 @@ export default function HeroSection() {
               transition={{ delay: 0.1, duration: 0.5 }}
             >
               <h1 
-                className="text-5xl sm:text-6xl md:text-7xl tracking-tight text-balance text-gray-200"
-                style={{ fontFamily: '"Rubik Bubbles", system-ui', fontWeight: 400, fontStyle: 'normal', letterSpacing: 'normal' }}
+                className="text-5xl sm:text-6xl md:text-7xl text-balance text-gray-200"
+                style={{ 
+                  fontFamily: '"Rubik Bubbles", system-ui', 
+                  fontWeight: 400, 
+                  fontStyle: 'normal',
+                  letterSpacing: '0.05em'
+                }}
               >
                 <Shuffle text="PCB Design &" className="block" />
                 <Shuffle text="Hardware Prototyping" className="block" delay={200} />
