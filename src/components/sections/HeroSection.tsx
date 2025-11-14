@@ -11,19 +11,6 @@ import VariableProximity from "@/components/animations/VariableProximity";
 export default function HeroSection() {
   return (
     <section className="relative pt-32 pb-24 px-6 sm:px-8 min-h-[80vh] flex items-center overflow-hidden">
-      {/* Animated gradient background */}
-      <motion.div
-        className="absolute inset-0 opacity-30"
-        animate={{
-          background: [
-            "radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.05) 0%, transparent 50%)",
-            "radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.05) 0%, transparent 50%)",
-            "radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.05) 0%, transparent 50%)",
-          ],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      />
-
       {/* Floating decorative elements */}
       <FloatingElement delay={0} duration={4} className="absolute top-20 right-10 w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full blur-xl" />
       <FloatingElement delay={1} duration={5} className="absolute bottom-40 left-10 w-32 h-32 bg-gradient-to-br from-accent/10 to-accent/5 rounded-full blur-xl" />

@@ -9,9 +9,9 @@ import LightRays from "@/components/LightRays";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen bg-background relative">
       {/* Background layer - positioned behind all content */}
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <LightRays 
           raysOrigin="top-center"
           raysColor="#ffffff"

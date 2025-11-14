@@ -136,10 +136,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       makeParticles(filterRef.current);
     }
 
-    // Navigate after animation starts
+    // Navigate after animation completes
     setTimeout(() => {
       navigate(href);
-    }, 100);
+    }, 400);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number, href: string) => {
