@@ -12,7 +12,7 @@ export default function Navbar() {
   const backgroundColor = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.72)"]
+    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.5)"]
   );
 
   const backdropBlur = useTransform(
@@ -59,7 +59,7 @@ export default function Navbar() {
     >
       {/* Glassmorphism overlay */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/40 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-white/5 via-white/3 to-transparent pointer-events-none"
         style={{
           opacity: useTransform(scrollY, [0, 100], [0, 1]),
         }}

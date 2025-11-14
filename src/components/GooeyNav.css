@@ -26,11 +26,11 @@
     1
   );
   
-  /* Minimal theme colors for GooeyNav */
+  /* Minimal theme colors for GooeyNav - Dark theme */
   --color-1: oklch(0.95 0 0); /* Off-white */
-  --color-2: oklch(0.7 0 0);  /* Light Gray */
-  --color-3: oklch(0.5 0 0);  /* Gray */
-  --color-4: oklch(0.15 0 0); /* Black */
+  --color-2: oklch(0.85 0 0); /* Light Gray */
+  --color-3: oklch(0.75 0 0); /* Medium Gray */
+  --color-4: oklch(0.95 0 0); /* Off-white */
 }
 
 .gooey-nav-container {
@@ -93,6 +93,11 @@
 .gooey-nav-container nav ul li.active {
   color: oklch(0.15 0 0);
   text-shadow: none;
+}
+
+.gooey-nav-container nav ul li a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .gooey-nav-container nav ul li.active::after {
