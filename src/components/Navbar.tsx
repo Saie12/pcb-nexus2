@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import GooeyNav from "@/components/GooeyNav";
 import Dock from "@/components/Dock";
-import { Home, Briefcase, Settings, Mail } from "lucide-react";
+import { Home, Briefcase, Settings, Mail, User } from "lucide-react";
 
 export default function Navbar() {
   const location = useLocation();
@@ -56,6 +56,11 @@ export default function Navbar() {
       icon: <Settings size={24} className="text-white" />,
       label: "Services",
       onClick: () => window.location.href = "/services",
+    },
+    {
+      icon: <User size={24} className="text-white" />,
+      label: "About",
+      onClick: () => window.location.href = "/about",
     },
     {
       icon: <Mail size={24} className="text-white" />,
