@@ -51,8 +51,26 @@ export default function HeroSection() {
                   letterSpacing: '0.05em'
                 }}
               >
-                <Shuffle text="PCB Design &" className="block" />
-                <Shuffle text="Hardware Prototyping" className="block" delay={200} />
+                <motion.div
+                  drag
+                  dragConstraints={{ left: -100, right: 100, top: -50, bottom: 50 }}
+                  dragElastic={0.2}
+                  dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+                  whileDrag={{ scale: 1.05, cursor: "grabbing" }}
+                  className="cursor-grab"
+                >
+                  <Shuffle text="PCB Design &" className="block" />
+                </motion.div>
+                <motion.div
+                  drag
+                  dragConstraints={{ left: -100, right: 100, top: -50, bottom: 50 }}
+                  dragElastic={0.2}
+                  dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+                  whileDrag={{ scale: 1.05, cursor: "grabbing" }}
+                  className="cursor-grab"
+                >
+                  <Shuffle text="Hardware Prototyping" className="block" delay={200} />
+                </motion.div>
               </h1>
             </motion.div>
             <VariableProximity 
