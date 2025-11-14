@@ -109,10 +109,13 @@
   color: oklch(0.15 0 0);
   transition: color 0.3s ease;
   z-index: 2;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .gooey-nav-container .effect.text.active {
   color: oklch(0.15 0 0);
+  opacity: 0;
 }
 
 .gooey-nav-container .effect.filter {
