@@ -128,18 +128,20 @@
   position: absolute;
   inset: -75px;
   z-index: -2;
-  background: oklch(0.15 0 0);
+  background: transparent;
 }
 
 .gooey-nav-container .effect.filter::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: oklch(0.95 0 0);
+  background: rgba(255, 255, 255, 0.1);
   transform: scale(0);
   opacity: 0;
   z-index: -1;
   border-radius: 100vw;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .gooey-nav-container .effect.active::after {
