@@ -64,12 +64,29 @@ export default function ProjectCard({
           transition: { duration: 0.3 }
         }}
       >
-        <Card className="bg-card border-border hover:border-foreground/20 hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer relative">
-          {/* 3D Depth Layer */}
+        <Card className="bg-card/40 backdrop-blur-xl border border-white/10 hover:border-white/20 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden group cursor-pointer relative before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300">
+          {/* Liquid Glass Reflection Layer */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{
               transform: "translateZ(20px)",
+              backdropFilter: "blur(8px)",
+            }}
+          />
+          
+          {/* Glass Shine Effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              transform: "translateZ(25px) translateX(-100%)",
+            }}
+            animate={{
+              translateX: ["100%", "-100%"],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 3,
             }}
           />
           
@@ -115,7 +132,7 @@ export default function ProjectCard({
             </motion.div>
           </div>
           
-          <CardContent className="p-6 relative" style={{ transform: "translateZ(40px)" }}>
+          <CardContent className="p-6 relative backdrop-blur-sm bg-gradient-to-b from-card/60 to-card/80" style={{ transform: "translateZ(40px)" }}>
             <motion.h3 
               className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300"
               style={{ transform: "translateZ(50px)" }}
