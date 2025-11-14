@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import './GooeyNav.css';
 
 interface GooeyNavItem {
@@ -32,6 +33,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
+  const navigate = useNavigate();
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
 
@@ -109,8 +111,11 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     textRef.current.innerText = element.innerText;
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number) => {
-    const liEl = e.currentTarget;
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number, href: string) => {
+    e.preventDefault();
+    const liEl = e.currentTarget.parentElement;
+    if (!liEl) return;
+    
     if (activeIndex === index) return;
 
     setActiveIndex(index);
@@ -123,7 +128,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
     if (textRef.current) {
       textRef.current.classList.remove('active');
-
       void textRef.current.offsetWidth;
       textRef.current.classList.add('active');
     }
@@ -131,18 +135,25 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     if (filterRef.current) {
       makeParticles(filterRef.current);
     }
+
+    // Navigate after animation starts
+    setTimeout(() => {
+      navigate(href);
+    }, 100);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number, href: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       const liEl = e.currentTarget.parentElement;
       if (liEl) {
         handleClick(
           {
-            currentTarget: liEl
+            currentTarget: e.currentTarget,
+            preventDefault: () => {}
           } as React.MouseEvent<HTMLAnchorElement>,
-          index
+          index,
+          href
         );
       }
     }
@@ -173,7 +184,11 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         <ul ref={navRef}>
           {items.map((item, index) => (
             <li key={index} className={activeIndex === index ? 'active' : ''}>
-              <a href={item.href} onClick={e => handleClick(e, index)} onKeyDown={e => handleKeyDown(e, index)}>
+              <a 
+                href={item.href} 
+                onClick={e => handleClick(e, index, item.href)} 
+                onKeyDown={e => handleKeyDown(e, index, item.href)}
+              >
                 {item.label}
               </a>
             </li>
