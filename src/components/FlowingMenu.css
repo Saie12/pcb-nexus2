@@ -24,8 +24,7 @@
 .menu__item-link {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 2rem;
+  justify-content: center;
   height: 100%;
   position: relative;
   cursor: pointer;
@@ -36,13 +35,6 @@
   color: hsl(var(--foreground));
   font-size: clamp(1.2rem, 2.5vh, 1.8rem);
   transition: color 0.3s ease;
-}
-
-@media (min-width: 1024px) {
-  .menu__item-link {
-    padding-left: 3rem;
-    font-size: clamp(1.4rem, 2.8vh, 2rem);
-  }
 }
 
 .menu__item-link:hover {
@@ -88,29 +80,21 @@
   white-space: nowrap;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: clamp(1rem, 2.5vh, 1.8rem);
+  font-size: clamp(1rem, 2vh, 1.5rem);
   line-height: 1.2;
-  padding: 1vh 1vw 0;
+  padding: 0.5vh 1vw;
 }
 
 .marquee__img {
-  width: clamp(120px, 150px, 180px);
-  height: 6vh;
-  margin: 1.5em 1.5vw;
-  padding: 0.8em 0;
-  border-radius: 10px;
+  width: clamp(100px, 120px, 140px);
+  height: 5vh;
+  margin: 1em 1.2vw;
+  padding: 0.6em 0;
+  border-radius: 8px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-}
-
-@media (min-width: 1024px) {
-  .marquee__img {
-    width: clamp(140px, 170px, 200px);
-    height: 6.5vh;
-    margin: 1.8em 1.8vw;
-  }
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu__item:hover .marquee {
