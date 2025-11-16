@@ -51,7 +51,7 @@ const skillData: Record<string, Array<{ name: string; logo: string }>> = {
     { name: 'C++', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg' },
     { name: 'C', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg' },
     { name: 'Python', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
-    { name: 'Assembly', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' }
+    { name: 'Assembly', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/c877af93-2da5-4b39-82cc-fea3f24144e7' }
   ],
   'Version Control': [
     { name: 'Git', logo: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png' },
