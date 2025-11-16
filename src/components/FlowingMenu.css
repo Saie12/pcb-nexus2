@@ -38,7 +38,7 @@
 }
 
 .menu__item-link:hover {
-  color: hsl(var(--background));
+  color: transparent;
 }
 
 .menu__item-link:focus:not(:focus-visible) {
