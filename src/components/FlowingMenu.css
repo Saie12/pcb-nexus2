@@ -91,12 +91,13 @@
   margin: 2em 2vw;
   padding: 1em 0;
   border-radius: 12px;
-  background-size: cover;
-  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.menu__item-link:hover + .marquee {
+.menu__item:hover .marquee {
   transform: translate3d(0, 0%, 0);
 }
 

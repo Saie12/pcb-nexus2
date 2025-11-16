@@ -25,7 +25,7 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
   );
 };
 
-// Skill data for each category
+// Skill data for each category with proper logos
 const skillData: Record<string, Array<{ name: string; logo: string }>> = {
   'EDA Tools': [
     { name: 'KiCad', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/KiCad-Logo.svg' },
@@ -33,29 +33,34 @@ const skillData: Record<string, Array<{ name: string; logo: string }>> = {
     { name: 'Eagle', logo: 'https://seeklogo.com/images/A/autodesk-eagle-logo-8B5B33E4F8-seeklogo.com.png' }
   ],
   'Design Concepts': [
-    { name: 'High-Speed', logo: 'https://cdn-icons-png.flaticon.com/512/2920/2920235.png' },
-    { name: 'Power Delivery', logo: 'https://cdn-icons-png.flaticon.com/512/3176/3176369.png' }
+    { name: 'High-Speed Design', logo: 'https://cdn-icons-png.flaticon.com/512/2920/2920235.png' },
+    { name: 'Power Delivery', logo: 'https://cdn-icons-png.flaticon.com/512/3176/3176369.png' },
+    { name: 'Signal Integrity', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png' }
   ],
   'Microcontrollers & IDEs': [
     { name: 'ARM Cortex-M', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/39/ARM_logo.svg' },
     { name: 'PIC', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Microchip-Logo.svg' },
     { name: '8051', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png' },
     { name: 'Arduino IDE', logo: 'https://cdn.worldvectorlogo.com/logos/arduino-1.svg' },
-    { name: 'VS Code', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg' }
+    { name: 'VS Code', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg' },
+    { name: 'Keil', logo: 'https://www.keil.com/pack/doc/compiler/EventRecorder/html/arm_logo_blue_rgb.png' }
   ],
   'Programming': [
     { name: 'C++', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg' },
     { name: 'C', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg' },
-    { name: 'Python', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' }
+    { name: 'Python', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
+    { name: 'Assembly', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' }
   ],
   'Version Control': [
     { name: 'Git', logo: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png' },
-    { name: 'GitHub', logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' }
+    { name: 'GitHub', logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' },
+    { name: 'GitLab', logo: 'https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png' }
   ],
   'Simulation & Prototyping': [
     { name: 'LTspice', logo: 'https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/LTspice_Icon_RGB.png' },
     { name: 'Proteus', logo: 'https://www.labcenter.com/images/proteus_icon.png' },
-    { name: 'Breadboard', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' }
+    { name: 'Breadboard', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' },
+    { name: 'Oscilloscope', logo: 'https://cdn-icons-png.flaticon.com/512/3176/3176369.png' }
   ]
 };
 
