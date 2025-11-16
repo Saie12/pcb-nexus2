@@ -62,7 +62,7 @@ const skillData: Record<string, Array<{ name: string; logo: string }>> = {
     { name: 'LTspice', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/6dd28a8d-40af-430a-a34f-bd337193f621' },
     { name: 'Proteus', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/23b7cd07-646a-41c0-b0b5-9e00429968e4' },
     { name: 'Breadboard', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/afab7057-d1c0-4c45-ba14-4635e4ac08e2' },
-    { name: 'Oscilloscope', logo: 'https://cdn-icons-png.flaticon.com/512/3176/3176369.png' }
+    { name: 'Oscilloscope', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/ef3c5ec1-77c4-47a9-8946-f6845e92177b' }
   ]
 };
 
