@@ -45,7 +45,7 @@ const skillData: Record<string, Array<{ name: string; logo: string }>> = {
     { name: 'Arduino IDE', logo: 'https://cdn.worldvectorlogo.com/logos/arduino-1.svg' },
     { name: 'VS Code', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg' },
     { name: 'Keil', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/ec179b8b-3369-4ad4-8622-d4d4d2aaebbc' },
-    { name: 'STM32CubeIDE', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103641.png' }
+    { name: 'STM32CubeIDE', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/eaf20b39-1b02-4b69-8b10-032fa8464d81' }
   ],
   'Programming': [
     { name: 'C++', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg' },
