@@ -39,7 +39,7 @@ const skillData: Record<string, Array<{ name: string; logo: string }>> = {
     { name: 'Signal Integrity', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png' }
   ],
   'Microcontrollers & IDEs': [
-    { name: 'ARM Cortex-M', logo: 'https://cdn-icons-png.flaticon.com/512/919/919827.png' },
+    { name: 'ARM Cortex-M', logo: 'https://harmless-tapir-303.convex.cloud/api/storage/bc0aac65-b084-4c40-81f5-d0a807090310' },
     { name: 'PIC', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png' },
     { name: '8051', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' },
     { name: 'Arduino IDE', logo: 'https://cdn.worldvectorlogo.com/logos/arduino-1.svg' },
