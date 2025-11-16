@@ -8,7 +8,7 @@ export default function AboutSection() {
     {
       link: "#eda-tools",
       text: "EDA Tools",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop"
+      image: "https://upload.wikimedia.org/wikipedia/commons/5/59/KiCad-Logo.svg"
     },
     {
       link: "#design-concepts",
@@ -18,17 +18,17 @@ export default function AboutSection() {
     {
       link: "#microcontrollers",
       text: "Microcontrollers & IDEs",
-      image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&h=400&fit=crop"
+      image: "https://upload.wikimedia.org/wikipedia/commons/8/82/Atmel_logo.svg"
     },
     {
       link: "#programming",
       text: "Programming",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop"
+      image: "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
     },
     {
       link: "#version-control",
       text: "Version Control",
-      image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=400&fit=crop"
+      image: "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png"
     },
     {
       link: "#simulation",

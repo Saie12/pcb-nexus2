@@ -25,6 +25,40 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
   );
 };
 
+// Skill data for each category
+const skillData: Record<string, Array<{ name: string; logo: string }>> = {
+  'EDA Tools': [
+    { name: 'KiCad', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/KiCad-Logo.svg' },
+    { name: 'Altium', logo: 'https://seeklogo.com/images/A/altium-logo-8C2E086C3E-seeklogo.com.png' },
+    { name: 'Eagle', logo: 'https://seeklogo.com/images/A/autodesk-eagle-logo-8B5B33E4F8-seeklogo.com.png' }
+  ],
+  'Design Concepts': [
+    { name: 'High-Speed', logo: 'https://cdn-icons-png.flaticon.com/512/2920/2920235.png' },
+    { name: 'Power Delivery', logo: 'https://cdn-icons-png.flaticon.com/512/3176/3176369.png' }
+  ],
+  'Microcontrollers & IDEs': [
+    { name: 'ARM Cortex-M', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/39/ARM_logo.svg' },
+    { name: 'PIC', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Microchip-Logo.svg' },
+    { name: '8051', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png' },
+    { name: 'Arduino IDE', logo: 'https://cdn.worldvectorlogo.com/logos/arduino-1.svg' },
+    { name: 'VS Code', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg' }
+  ],
+  'Programming': [
+    { name: 'C++', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg' },
+    { name: 'C', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg' },
+    { name: 'Python', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' }
+  ],
+  'Version Control': [
+    { name: 'Git', logo: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png' },
+    { name: 'GitHub', logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' }
+  ],
+  'Simulation & Prototyping': [
+    { name: 'LTspice', logo: 'https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/LTspice_Icon_RGB.png' },
+    { name: 'Proteus', logo: 'https://www.labcenter.com/images/proteus_icon.png' },
+    { name: 'Breadboard', logo: 'https://cdn-icons-png.flaticon.com/512/2103/2103658.png' }
+  ]
+};
+
 const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
   const itemRef = React.useRef<HTMLDivElement>(null);
   const marqueeRef = React.useRef<HTMLDivElement>(null);
@@ -75,13 +109,18 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
   };
 
   const repeatedMarqueeContent = React.useMemo(() => {
+    const skills = skillData[text] || [];
     return Array.from({ length: 4 }).map((_, idx) => (
       <React.Fragment key={idx}>
-        <span>{text}</span>
-        <div className="marquee__img" style={{ backgroundImage: `url(${image})` }} />
+        {skills.map((skill, skillIdx) => (
+          <React.Fragment key={`${idx}-${skillIdx}`}>
+            <span>{skill.name}</span>
+            <div className="marquee__img" style={{ backgroundImage: `url(${skill.logo})` }} />
+          </React.Fragment>
+        ))}
       </React.Fragment>
     ));
-  }, [text, image]);
+  }, [text]);
 
   return (
     <div className="menu__item" ref={itemRef}>
