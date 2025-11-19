@@ -14,7 +14,7 @@ function Model({ modelPath }: { modelPath: string }) {
   const gltf = useLoader(GLTFLoader, modelPath);
   
   // Scale up the model significantly for better visibility
-  return <primitive object={gltf.scene} scale={2.5} />;
+  return <primitive object={gltf.scene} scale={6} />;
 }
 
 export default function Model3DViewer({ modelPath, className = "" }: Model3DViewerProps) {
@@ -53,7 +53,7 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-transparent pointer-events-none z-10" />
 
       <Canvas
-        camera={{ position: [0, 0, 3], fov: 60 }}
+        camera={{ position: [0, 0, 1.5], fov: 75 }}
         style={{ background: "transparent" }}
         onCreated={() => {
           setLoadProgress(100);
@@ -64,37 +64,30 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
         <Suspense fallback={null}>
           <Environment preset="city" />
           <Stage
-            intensity={1.2}
+            intensity={1.5}
             environment="city"
             shadows={{
               type: "contact",
               opacity: 0.5,
               blur: 2.5,
             }}
-            adjustCamera={0.8}
+            adjustCamera={false}
           >
-            <PresentationControls
-              global
-              snap
-              rotation={[0, 0, 0]}
-              polar={[-Math.PI / 3, Math.PI / 3]}
-              azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-              speed={1.5}
-            >
-              <Model modelPath={modelPath} />
-            </PresentationControls>
+            <Model modelPath={modelPath} />
           </Stage>
           <OrbitControls
             enableZoom={true}
             enablePan={true}
             enableRotate={true}
-            minDistance={1.5}
-            maxDistance={8}
+            enableDamping={true}
+            dampingFactor={0.05}
+            minDistance={0.5}
+            maxDistance={5}
             minPolarAngle={0}
             maxPolarAngle={Math.PI}
-            dampingFactor={0.05}
-            rotateSpeed={0.5}
-            zoomSpeed={0.8}
+            rotateSpeed={0.8}
+            zoomSpeed={1.2}
+            panSpeed={0.8}
           />
         </Suspense>
         <ambientLight intensity={0.5} />
