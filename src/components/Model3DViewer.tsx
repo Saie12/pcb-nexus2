@@ -1,8 +1,9 @@
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage, PresentationControls } from "@react-three/drei";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { OrbitControls, Stage, PresentationControls } from "@react-three/drei";
 import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 interface Model3DViewerProps {
   modelPath: string;
@@ -10,12 +11,9 @@ interface Model3DViewerProps {
 }
 
 function Model({ modelPath }: { modelPath: string }) {
-  const { scene } = useGLTF(modelPath, true);
-  return <primitive object={scene} />;
+  const gltf = useLoader(GLTFLoader, modelPath);
+  return <primitive object={gltf.scene} />;
 }
-
-// Preload the model
-useGLTF.preload("/assets/High_Speed_Ethernet_Interface.glb");
 
 export default function Model3DViewer({ modelPath, className = "" }: Model3DViewerProps) {
   return (
