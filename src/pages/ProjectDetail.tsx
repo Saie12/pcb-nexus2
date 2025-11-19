@@ -6,6 +6,7 @@ import { ArrowLeft, Github, ExternalLink, Loader2 } from "lucide-react";
 import { Link, useParams } from "react-router";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Model3DViewer from "@/components/Model3DViewer";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -121,6 +122,28 @@ export default function ProjectDetail() {
                 ))}
               </div>
             </motion.div>
+
+            {/* 3D Model Viewer - Add this section for High Speed Ethernet Interface */}
+            {project.slug === "high-speed-ethernet-interface" && (
+              <motion.div
+                className="mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <motion.span 
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#00ff88]/10 border border-[#00ff88]/30 text-[#00ff88] text-xl"
+                    whileHover={{ scale: 1.1, boxShadow: "0 0 20px rgba(0,255,136,0.4)" }}
+                  >
+                    🎨
+                  </motion.span>
+                  Interactive 3D Model
+                </h2>
+                <Model3DViewer modelPath="/assets/High_Speed_Ethernet_Interface.glb" />
+              </motion.div>
+            )}
 
             <div className="space-y-12 mb-8">
               {/* Concept & Schematics Section */}
