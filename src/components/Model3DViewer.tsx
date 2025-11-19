@@ -42,7 +42,7 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
 
   return (
     <motion.div
-      className={`relative w-full h-[700px] md:h-[800px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] ${className}`}
+      className={`relative w-full h-[550px] md:h-[700px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] ${className}`}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -57,7 +57,7 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-transparent pointer-events-none z-10" />
 
       <Canvas
-        camera={{ position: [0, 0, 1.5], fov: 75 }}
+        camera={{ position: [0, 0, 1.2], fov: 75 }}
         style={{ background: "transparent" }}
         onCreated={() => {
           setLoadProgress(100);
@@ -85,8 +85,8 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
             enableRotate={true}
             enableDamping={true}
             dampingFactor={0.05}
-            minDistance={0.5}
-            maxDistance={5}
+            minDistance={0.4}
+            maxDistance={3}
             minPolarAngle={0}
             maxPolarAngle={Math.PI}
             rotateSpeed={0.8}
