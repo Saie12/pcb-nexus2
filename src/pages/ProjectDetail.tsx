@@ -141,7 +141,7 @@ export default function ProjectDetail() {
                   </motion.span>
                   Interactive 3D Model
                 </h2>
-                <Model3DViewer modelPath="/assets/High_Speed_Ethernet_Interface_decoded.glb" />
+                <Model3DViewer modelPath="/assets/High_Speed_Ethernet_Interface.glb" />
               </motion.div>
             )}
 
