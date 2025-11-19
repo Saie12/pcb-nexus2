@@ -1,9 +1,10 @@
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, Stage, PresentationControls, Environment } from "@react-three/drei";
+import { OrbitControls, Stage, Environment } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Maximize2, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { modelCache } from "@/hooks/usePreloadAssets";
 
 interface Model3DViewerProps {
   modelPath: string;
@@ -11,7 +12,10 @@ interface Model3DViewerProps {
 }
 
 function Model({ modelPath }: { modelPath: string }) {
-  const gltf = useLoader(GLTFLoader, modelPath);
+  // Check cache first, otherwise load normally
+  const gltf = modelCache.has(modelPath) 
+    ? modelCache.get(modelPath) 
+    : useLoader(GLTFLoader, modelPath);
   
   // Scale up the model significantly for better visibility
   return <primitive object={gltf.scene} scale={6} />;
