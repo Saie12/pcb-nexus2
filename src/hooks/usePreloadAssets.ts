@@ -8,6 +8,9 @@ interface PreloadConfig {
   priority: 'high' | 'low';
 }
 
+// Global cache to store loaded models
+const modelCache = new Map<string, any>();
+
 export function usePreloadAssets(config: PreloadConfig) {
   const [preloadStatus, setPreloadStatus] = useState<{
     models: Record<string, boolean>;
@@ -52,17 +55,30 @@ export function usePreloadAssets(config: PreloadConfig) {
     const loader = new GLTFLoader();
 
     config.models.forEach((modelPath) => {
+      // Check if model is already cached
+      if (modelCache.has(modelPath)) {
+        setPreloadStatus((prev) => ({
+          ...prev,
+          models: { ...prev.models, [modelPath]: true },
+        }));
+        console.log(`✅ Model already cached: ${modelPath}`);
+        return;
+      }
+
       // Use requestIdleCallback for non-blocking loading
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => {
           loader.load(
             modelPath,
-            () => {
+            (gltf) => {
+              // Store in cache
+              modelCache.set(modelPath, gltf);
+              
               setPreloadStatus((prev) => ({
                 ...prev,
                 models: { ...prev.models, [modelPath]: true },
               }));
-              console.log(`✅ Preloaded 3D model: ${modelPath}`);
+              console.log(`✅ Preloaded & cached 3D model: ${modelPath}`);
             },
             undefined,
             (error) => {
@@ -75,12 +91,15 @@ export function usePreloadAssets(config: PreloadConfig) {
         setTimeout(() => {
           loader.load(
             modelPath,
-            () => {
+            (gltf) => {
+              // Store in cache
+              modelCache.set(modelPath, gltf);
+              
               setPreloadStatus((prev) => ({
                 ...prev,
                 models: { ...prev.models, [modelPath]: true },
               }));
-              console.log(`✅ Preloaded 3D model: ${modelPath}`);
+              console.log(`✅ Preloaded & cached 3D model: ${modelPath}`);
             },
             undefined,
             (error) => {
@@ -117,3 +136,6 @@ export function usePreloadAssets(config: PreloadConfig) {
 
   return preloadStatus;
 }
+
+// Export the cache for use in components
+export { modelCache };

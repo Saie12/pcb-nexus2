@@ -12,7 +12,9 @@ interface Model3DViewerProps {
 
 function Model({ modelPath }: { modelPath: string }) {
   const gltf = useLoader(GLTFLoader, modelPath);
-  return <primitive object={gltf.scene} />;
+  
+  // Scale up the model significantly for better visibility
+  return <primitive object={gltf.scene} scale={2.5} />;
 }
 
 export default function Model3DViewer({ modelPath, className = "" }: Model3DViewerProps) {
@@ -51,25 +53,25 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-transparent pointer-events-none z-10" />
 
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        camera={{ position: [0, 0, 3], fov: 60 }}
         style={{ background: "transparent" }}
         onCreated={() => {
           setLoadProgress(100);
           setTimeout(() => setIsLoading(false), 500);
         }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
       >
         <Suspense fallback={null}>
           <Environment preset="city" />
           <Stage
-            intensity={0.5}
+            intensity={1.2}
             environment="city"
             shadows={{
               type: "contact",
-              opacity: 0.4,
-              blur: 2,
+              opacity: 0.5,
+              blur: 2.5,
             }}
-            adjustCamera={1.2}
+            adjustCamera={0.8}
           >
             <PresentationControls
               global
@@ -86,8 +88,8 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
             enableZoom={true}
             enablePan={true}
             enableRotate={true}
-            minDistance={2}
-            maxDistance={10}
+            minDistance={1.5}
+            maxDistance={8}
             minPolarAngle={0}
             maxPolarAngle={Math.PI}
             dampingFactor={0.05}
@@ -95,10 +97,10 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
             zoomSpeed={0.8}
           />
         </Suspense>
-        <ambientLight intensity={0.3} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-        <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} intensity={0.5} />
-        <pointLight position={[0, 5, 5]} intensity={0.5} color="#00ff88" />
+        <ambientLight intensity={0.5} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />
+        <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} intensity={0.8} />
+        <pointLight position={[0, 5, 5]} intensity={0.8} color="#00ff88" />
       </Canvas>
 
       {/* Enhanced Loading indicator with progress */}
