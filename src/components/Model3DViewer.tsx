@@ -42,7 +42,7 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
 
   return (
     <motion.div
-      className={`relative w-full h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] ${className}`}
+      className={`relative w-full h-[700px] md:h-[800px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] ${className}`}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
