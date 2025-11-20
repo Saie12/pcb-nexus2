@@ -1,8 +1,2 @@
-// User visits homepage
-// Browser downloads: Only Home page code
-// Total: 200 KB downloaded
-
-// User clicks "Projects" → Browser downloads Projects page (300 KB)
-// User views 3D model → Browser downloads 3D Viewer + GLB file (3 MB)
-
-const Model3DViewer = lazy(() => import("@/components/Model3DViewer"));
+   from: "PCB Nexus Contact <noreply@pcbnexus.com>"
+   
