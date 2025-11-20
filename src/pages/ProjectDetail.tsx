@@ -123,8 +123,8 @@ export default function ProjectDetail() {
               </div>
             </motion.div>
 
-            {/* 3D Model Viewer - Add this section for High Speed Ethernet Interface */}
-            {project.slug === "high-speed-ethernet-interface" && (
+            {/* 3D Model Viewer - Add this section for High Speed Ethernet Interface and ESP32 */}
+            {(project.slug === "high-speed-ethernet-interface" || project.slug === "esp32-dual-relay-wifi-smart-switch") && (
               <motion.div
                 className="mb-16"
                 initial={{ opacity: 0, y: 20 }}
