@@ -57,7 +57,7 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-transparent pointer-events-none z-10" />
 
       <Canvas
-        camera={{ position: [0, 0, 0.9], fov: 75 }}
+        camera={{ position: [0, 0, 0.7], fov: 75 }}
         style={{ background: "transparent" }}
         onCreated={() => {
           setLoadProgress(100);
@@ -85,8 +85,8 @@ export default function Model3DViewer({ modelPath, className = "" }: Model3DView
             enableRotate={true}
             enableDamping={true}
             dampingFactor={0.05}
-            minDistance={0.3}
-            maxDistance={2.5}
+            minDistance={0.2}
+            maxDistance={2}
             minPolarAngle={0}
             maxPolarAngle={Math.PI}
             rotateSpeed={0.8}
