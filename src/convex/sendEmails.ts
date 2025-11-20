@@ -15,8 +15,8 @@ export const sendContactNotification = internalAction({
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
-      await resend.emails.send({
-        from: "PCB Nexus Contact <noreply@yourdomain.com>",
+      const result = await resend.emails.send({
+        from: "PCB Nexus Contact <onboarding@resend.dev>",
         to: "saieshsasane@gmail.com",
         subject: `New Contact Form Submission: ${args.subject}`,
         html: `
@@ -43,7 +43,8 @@ export const sendContactNotification = internalAction({
         `,
       });
 
-      console.log("Email notification sent successfully");
+      console.log("Email sent successfully:", result);
+      return result;
     } catch (error) {
       console.error("Failed to send email notification:", error);
       throw error;
