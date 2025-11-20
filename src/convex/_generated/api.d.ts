@@ -19,6 +19,7 @@ import type * as contact from "../contact.js";
 import type * as http from "../http.js";
 import type * as projects from "../projects.js";
 import type * as seedProjects from "../seedProjects.js";
+import type * as sendEmails from "../sendEmails.js";
 import type * as testContactData from "../testContactData.js";
 import type * as users from "../users.js";
 
@@ -37,6 +38,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   projects: typeof projects;
   seedProjects: typeof seedProjects;
+  sendEmails: typeof sendEmails;
   testContactData: typeof testContactData;
   users: typeof users;
 }>;
